@@ -47,6 +47,9 @@ struct MyTheme{
 			contentButtonBackground = Color("t2_content_btn_background")
 			contentButtonStroke = Color("t2_content_btn_stroke")*/
 		}
+		if setThemeName == "black2" {
+			contentPageBackground = "03_Chalkboard_BG"
+		}
 	}
 	
 
