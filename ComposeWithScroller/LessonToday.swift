@@ -11,8 +11,8 @@ import SwiftUI
 class LessonToday: ObservableObject {
 	@Published var subject:String = "我們來組句子！"
 	@Published var quiz: [Quiz] = [
-		Quiz(asking: "草是什麼顏色？", answer: ["草是","綠色的","。"], picture:"", status: 0),
-		Quiz(asking: "雲是什麼顏色？", answer: ["雲是","白色的","。"], picture:"", status: 0)
+		Quiz(asking: "草是什麼顏色？", answer: ["草是","綠色的","。"], options:[], picture:"", status: 0),
+		Quiz(asking: "雲是什麼顏色？", answer: ["雲是","白色的","。"], options:[], picture:"", status: 0)
 	]
 	@Published var at = 0
 	@Published var myTheme:MyTheme = MyTheme()

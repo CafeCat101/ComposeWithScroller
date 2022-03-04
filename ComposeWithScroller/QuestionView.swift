@@ -58,7 +58,7 @@ struct QuestionView: View {
 										DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 											makeSentence.append(rememberWord)
 											animateSentence = false
-											isSentenceFinished()
+											//isSentenceFinished()
 										}
 									})
 							}
@@ -67,7 +67,7 @@ struct QuestionView: View {
 							Button(action: {
 								if makeSentence.count>0 {
 									makeSentence.removeLast()
-									isSentenceFinished()
+									//isSentenceFinished()
 								}
 							}) {
 								RoundedRectangle(cornerRadius: 22, style: .continuous)
@@ -82,7 +82,7 @@ struct QuestionView: View {
 									)
 							}.buttonStyle(PlainButtonStyle())
 							
-							if showAnswerBtn==true {
+							//if showAnswerBtn==true {
 								Button(action: {
 									if (makeSentence.joined(separator: "")==lessonToday.quiz[lessonToday.at].answer.joined(separator: "")) && lessonToday.at==lessonToday.quiz.count-1 {
 										goToView = "FinishedView"
@@ -105,7 +105,7 @@ struct QuestionView: View {
 								}
 								.buttonStyle(PlainButtonStyle())
 								.transition(.offset(x: 0, y: -50))
-							}
+							//}
 						}
 						.padding(20)
 						.background(
@@ -116,26 +116,57 @@ struct QuestionView: View {
 						Spacer().frame(height:150)
 						
 						ScrollView(.vertical) {
-							VStack(alignment: .leading) {
-								ForEach(0..<lessonToday.quiz[lessonToday.at].answer.count) { index in
-									Button(action:{
-										self.pickAWord(selectedAnswer: index)
-									}){
-										Text(lessonToday.quiz[lessonToday.at].answer[index])
-											.frame(alignment:.topLeading)
-											.font(.system(size:50))
-											.padding(10)
-											.foregroundColor(Color.black)
-											.background(
-												RoundedRectangle(cornerRadius: 25, style: .continuous)
-													.strokeBorder(Color.black,lineWidth: 1)
-													.background(
-														RoundedRectangle(cornerRadius: 25, style: .continuous)
-															.foregroundColor(Color.white))
-											)
-									}.buttonStyle(PlainButtonStyle())
+							HStack {
+								
+								
+								
+								VStack(alignment: .leading) {
+									ForEach(0..<lessonToday.quiz[lessonToday.at].options[0].count) { index in
+										Button(action:{
+											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[0][index])
+										}){
+											Text(lessonToday.quiz[lessonToday.at].options[0][index])
+												.frame(minWidth:50,alignment:.center)
+												.font(.system(size:50))
+												.padding(10)
+												.foregroundColor(Color.black)
+												.background(
+													RoundedRectangle(cornerRadius: 25, style: .continuous)
+														.strokeBorder(Color.black,lineWidth: 1)
+														.background(
+															RoundedRectangle(cornerRadius: 25, style: .continuous)
+																.foregroundColor(Color.white))
+												)
+										}.buttonStyle(PlainButtonStyle())
+									}
 								}
+								.frame(maxWidth:.infinity)
+								
+								VStack(alignment: .leading) {
+									ForEach(0..<lessonToday.quiz[lessonToday.at].options[1].count) { index in
+										Button(action:{
+											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[1][index])
+										}){
+											Text(lessonToday.quiz[lessonToday.at].options[1][index])
+												.frame(minWidth:50,alignment:.center)
+												.font(.system(size:50))
+												.padding(10)
+												.foregroundColor(Color.black)
+												.background(
+													RoundedRectangle(cornerRadius: 25, style: .continuous)
+														.strokeBorder(Color.black,lineWidth: 1)
+														.background(
+															RoundedRectangle(cornerRadius: 25, style: .continuous)
+																.foregroundColor(Color.white))
+												)
+										}.buttonStyle(PlainButtonStyle())
+									}
+									Spacer()
+								}
+								.frame(maxWidth:.infinity)
+								
 							}
+							
 						}
 						.frame(maxWidth:.infinity)
 						.padding(20)
@@ -182,12 +213,12 @@ struct QuestionView: View {
 		}
 	}
 	
-	private func pickAWord(selectedAnswer:Int){
-		let chooseWord = lessonToday.quiz[lessonToday.at].answer[selectedAnswer]
-		if makeSentence.contains(chooseWord){
+	private func pickAWord(selectedAnswer:String){
+		let chooseWord = selectedAnswer//lessonToday.quiz[lessonToday.at].options[selectedAnswer[0]][selectedAnswer[1]]
+		//if makeSentence.contains(chooseWord){
 			//word exists. play ding sound
-			SoundManager.instance.playSound(sound: lessonToday.myTheme.duplicatedWord)
-		}else{
+		//	SoundManager.instance.playSound(sound: lessonToday.myTheme.duplicatedWord)
+		//}else{
 			//makeSentence.append(chooseWord)
 			rememberWord = chooseWord
 			print(chooseWord)
@@ -196,7 +227,7 @@ struct QuestionView: View {
 			withAnimation{
 				animateSentence = true
 			}
-		}
+		//}
 	}
 	
 	private func isSentenceFinished(){
