@@ -16,7 +16,7 @@ struct Lesson: Codable{
 struct Quiz: Codable{
 	var asking:String
 	var answer:[String]
-	var options:[[String]]
+	var options:[String]
 	var picture:String
 	var status:Int
 }

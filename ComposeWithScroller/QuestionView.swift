@@ -16,23 +16,26 @@ struct QuestionView: View {
 	@State private var rememberWord = ""
 	@State private var showAnswerBtn = false
 	@State private var showAnswer = false
+	@State private var testSentence = ["Pingu"," and"," Robby"," like to"," go"," skiing.","Pingu"," and"," Robby"," like to"," go"," skiing."]
 	
 	var body: some View {
 		if goToView == "QuestionView"{
 			VStack{
-				Spacer()
+				//Spacer()
+				
+				if let image = NSImage(contentsOf: URL(fileURLWithPath: lessonToday.userFolderPath+"/"+lessonToday.quiz[lessonToday.at].picture)) {
+					Image(nsImage: image)
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.shadow(color:.black, radius: 3, x:1, y: 1)
+						.border(Color.white, width: 5)
+						.frame(width:500, height:500)
+				}
+				Spacer().frame(height:20)
 				
 				HStack{
 					Spacer()
-					if let image = NSImage(contentsOf: URL(fileURLWithPath: lessonToday.userFolderPath+"/"+lessonToday.quiz[lessonToday.at].picture)) {
-						Image(nsImage: image)
-							.resizable()
-							.aspectRatio(contentMode: .fit)
-							.shadow(color:.black, radius: 3, x:1, y: 1)
-							.border(Color.white, width: 5)
-							.frame(width:500, height:500)
-					}
-					Spacer().frame(width:20)
+					
 					
 					VStack{
 						HStack{
@@ -42,7 +45,7 @@ struct QuestionView: View {
 							Spacer()
 						}
 						
-						Spacer().frame(height:40)
+						Spacer().frame(height:20)
 						
 						HStack{
 							Text("\(makeSentence.joined(separator: ""))")
@@ -58,16 +61,34 @@ struct QuestionView: View {
 										DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 											makeSentence.append(rememberWord)
 											animateSentence = false
-											//isSentenceFinished()
+											isSentenceFinished()
 										}
 									})
 							}
+							
+							if showAnswerBtn == false {
+								Menu {
+									ForEach(0..<lessonToday.quiz[lessonToday.at].options.count) { index in
+										Button(action:{
+											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[index])
+										}){
+											Text(lessonToday.quiz[lessonToday.at].options[index])
+												.font(.system(size: 40))
+										}
+									}
+								} label: {
+									Text("...")
+										.font(.largeTitle)
+										.foregroundColor(Color.black)
+								}.menuStyle(MyMenuStyle())
+							}
+							
 							
 							Spacer()
 							Button(action: {
 								if makeSentence.count>0 {
 									makeSentence.removeLast()
-									//isSentenceFinished()
+									isSentenceFinished()
 								}
 							}) {
 								RoundedRectangle(cornerRadius: 22, style: .continuous)
@@ -113,13 +134,10 @@ struct QuestionView: View {
 								.strokeBorder(Color.white,lineWidth: 1)
 						)
 						
-						Spacer().frame(height:150)
+						//Spacer().frame(height:150)
 						
-						ScrollView(.vertical) {
+						/*ScrollView(.vertical) {
 							HStack {
-								
-								
-								
 								VStack(alignment: .leading) {
 									ForEach(0..<lessonToday.quiz[lessonToday.at].options[0].count) { index in
 										Button(action:{
@@ -176,10 +194,8 @@ struct QuestionView: View {
 							/*.background(
 							 RoundedRectangle(cornerRadius: 25, style: .continuous)
 							 .foregroundColor(Color.white.opacity(0.4)))*/
-						)
+						)*/
 					}
-					
-					Spacer()
 				}
 				
 				

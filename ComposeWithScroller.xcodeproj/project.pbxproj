@@ -26,6 +26,7 @@
 		C87F6B4027CB893B0009DCA0 /* CorrectAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F6B3F27CB893B0009DCA0 /* CorrectAnswerView.swift */; };
 		C87F6B4227CB8A520009DCA0 /* WrongAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F6B4127CB8A520009DCA0 /* WrongAnswerView.swift */; };
 		C87F6B4427CB8A860009DCA0 /* FinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F6B4327CB8A860009DCA0 /* FinishedView.swift */; };
+		C87F6B7927D595520009DCA0 /* MyMenuStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87F6B7827D595520009DCA0 /* MyMenuStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		C87F6B3F27CB893B0009DCA0 /* CorrectAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectAnswerView.swift; sourceTree = "<group>"; };
 		C87F6B4127CB8A520009DCA0 /* WrongAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongAnswerView.swift; sourceTree = "<group>"; };
 		C87F6B4327CB8A860009DCA0 /* FinishedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedView.swift; sourceTree = "<group>"; };
+		C87F6B7827D595520009DCA0 /* MyMenuStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMenuStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				C87F6B3F27CB893B0009DCA0 /* CorrectAnswerView.swift */,
 				C87F6B4127CB8A520009DCA0 /* WrongAnswerView.swift */,
 				C87F6B4327CB8A860009DCA0 /* FinishedView.swift */,
+				C87F6B7827D595520009DCA0 /* MyMenuStyle.swift */,
 			);
 			path = ComposeWithScroller;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				C87F6B1627CA41AB0009DCA0 /* ComposeWithScrollerApp.swift in Sources */,
 				C87F6B4227CB8A520009DCA0 /* WrongAnswerView.swift in Sources */,
 				C87F6B2B27CB80A20009DCA0 /* MyTheme.swift in Sources */,
+				C87F6B7927D595520009DCA0 /* MyMenuStyle.swift in Sources */,
 				C87F6B3C27CB88C70009DCA0 /* AnswerView.swift in Sources */,
 				C87F6B2927CB804A0009DCA0 /* LessonToday.swift in Sources */,
 				C87F6B4027CB893B0009DCA0 /* CorrectAnswerView.swift in Sources */,
