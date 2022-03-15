@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct QuestionView: View {
 	@State private var goToView = "QuestionView"
@@ -104,28 +105,28 @@ struct QuestionView: View {
 							}.buttonStyle(PlainButtonStyle())
 							
 							//if showAnswerBtn==true {
-								Button(action: {
-									if (makeSentence.joined(separator: "")==lessonToday.quiz[lessonToday.at].answer.joined(separator: "")) && lessonToday.at==lessonToday.quiz.count-1 {
-										goToView = "FinishedView"
-									}else{
-										showAnswer = true
-									}
-								}) {
-									RoundedRectangle(cornerRadius: 22, style: .continuous)
-										.strokeBorder(Color.white,lineWidth: 1)
-										.background(
-											RoundedRectangle(cornerRadius: 22, style: .continuous)
-												.foregroundColor(Color.black.opacity(0.3)))
-										.frame(width:180,height:60)
-										.overlay(
-											Text("回答")
-												.font(.system(size: 30))
-												.fontWeight(.semibold)
-												.foregroundColor(Color.white)
-										)
+							Button(action: {
+								if (makeSentence.joined(separator: "")==lessonToday.quiz[lessonToday.at].answer.joined(separator: "")) && lessonToday.at==lessonToday.quiz.count-1 {
+									goToView = "FinishedView"
+								}else{
+									showAnswer = true
 								}
-								.buttonStyle(PlainButtonStyle())
-								.transition(.offset(x: 0, y: -50))
+							}) {
+								RoundedRectangle(cornerRadius: 22, style: .continuous)
+									.strokeBorder(Color.white,lineWidth: 1)
+									.background(
+										RoundedRectangle(cornerRadius: 22, style: .continuous)
+											.foregroundColor(Color.black.opacity(0.3)))
+									.frame(width:180,height:60)
+									.overlay(
+										Text("回答")
+											.font(.system(size: 30))
+											.fontWeight(.semibold)
+											.foregroundColor(Color.white)
+									)
+							}
+							.buttonStyle(PlainButtonStyle())
+							.transition(.offset(x: 0, y: -50))
 							//}
 						}
 						.padding(20)
@@ -137,91 +138,105 @@ struct QuestionView: View {
 						//Spacer().frame(height:150)
 						
 						/*ScrollView(.vertical) {
-							HStack {
-								VStack(alignment: .leading) {
-									ForEach(0..<lessonToday.quiz[lessonToday.at].options[0].count) { index in
-										Button(action:{
-											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[0][index])
-										}){
-											Text(lessonToday.quiz[lessonToday.at].options[0][index])
-												.frame(minWidth:50,alignment:.center)
-												.font(.system(size:50))
-												.padding(10)
-												.foregroundColor(Color.black)
-												.background(
-													RoundedRectangle(cornerRadius: 25, style: .continuous)
-														.strokeBorder(Color.black,lineWidth: 1)
-														.background(
-															RoundedRectangle(cornerRadius: 25, style: .continuous)
-																.foregroundColor(Color.white))
-												)
-										}.buttonStyle(PlainButtonStyle())
-									}
-								}
-								.frame(maxWidth:.infinity)
-								
-								VStack(alignment: .leading) {
-									ForEach(0..<lessonToday.quiz[lessonToday.at].options[1].count) { index in
-										Button(action:{
-											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[1][index])
-										}){
-											Text(lessonToday.quiz[lessonToday.at].options[1][index])
-												.frame(minWidth:50,alignment:.center)
-												.font(.system(size:50))
-												.padding(10)
-												.foregroundColor(Color.black)
-												.background(
-													RoundedRectangle(cornerRadius: 25, style: .continuous)
-														.strokeBorder(Color.black,lineWidth: 1)
-														.background(
-															RoundedRectangle(cornerRadius: 25, style: .continuous)
-																.foregroundColor(Color.white))
-												)
-										}.buttonStyle(PlainButtonStyle())
-									}
-									Spacer()
-								}
-								.frame(maxWidth:.infinity)
-								
-							}
-							
-						}
-						.frame(maxWidth:.infinity)
-						.padding(20)
-						.background(
+						 HStack {
+						 VStack(alignment: .leading) {
+						 ForEach(0..<lessonToday.quiz[lessonToday.at].options[0].count) { index in
+						 Button(action:{
+						 self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[0][index])
+						 }){
+						 Text(lessonToday.quiz[lessonToday.at].options[0][index])
+						 .frame(minWidth:50,alignment:.center)
+						 .font(.system(size:50))
+						 .padding(10)
+						 .foregroundColor(Color.black)
+						 .background(
+						 RoundedRectangle(cornerRadius: 25, style: .continuous)
+						 .strokeBorder(Color.black,lineWidth: 1)
+						 .background(
+						 RoundedRectangle(cornerRadius: 25, style: .continuous)
+						 .foregroundColor(Color.white))
+						 )
+						 }.buttonStyle(PlainButtonStyle())
+						 }
+						 }
+						 .frame(maxWidth:.infinity)
+						 
+						 VStack(alignment: .leading) {
+						 ForEach(0..<lessonToday.quiz[lessonToday.at].options[1].count) { index in
+						 Button(action:{
+						 self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[1][index])
+						 }){
+						 Text(lessonToday.quiz[lessonToday.at].options[1][index])
+						 .frame(minWidth:50,alignment:.center)
+						 .font(.system(size:50))
+						 .padding(10)
+						 .foregroundColor(Color.black)
+						 .background(
+						 RoundedRectangle(cornerRadius: 25, style: .continuous)
+						 .strokeBorder(Color.black,lineWidth: 1)
+						 .background(
+						 RoundedRectangle(cornerRadius: 25, style: .continuous)
+						 .foregroundColor(Color.white))
+						 )
+						 }.buttonStyle(PlainButtonStyle())
+						 }
+						 Spacer()
+						 }
+						 .frame(maxWidth:.infinity)
+						 
+						 }
+						 
+						 }
+						 .frame(maxWidth:.infinity)
+						 .padding(20)
+						 .background(
+						 RoundedRectangle(cornerRadius: 25, style: .continuous)
+						 .strokeBorder(Color.gray,lineWidth: 1)
+						 /*.background(
 							RoundedRectangle(cornerRadius: 25, style: .continuous)
-								.strokeBorder(Color.gray,lineWidth: 1)
-							/*.background(
-							 RoundedRectangle(cornerRadius: 25, style: .continuous)
-							 .foregroundColor(Color.white.opacity(0.4)))*/
-						)*/
+							.foregroundColor(Color.white.opacity(0.4)))*/
+						 )*/
 					}
 				}
 				
 				
 				Spacer()
-			}.padding(10)
-				.background(
-					Image(lessonToday.myTheme.contentPageBackground)
-						.resizable()
-				)
-				.sheet(isPresented: $showAnswer){
-					if makeSentence.joined(separator: "")==lessonToday.quiz[lessonToday.at].answer.joined(separator: "") {
-						CorrectAnswerView(isPresented: $showAnswer)
-							.onDisappear(perform: {
-								lessonToday.at = lessonToday.at + 1
-								resetQuestionValue()
-							})
-					}else{
-						WrongAnswerView(isPresented:$showAnswer, getMakeSentence: makeSentence)
-							.onDisappear(perform: {
-								lessonToday.quiz.append(lessonToday.quiz[lessonToday.at])
-								lessonToday.at = lessonToday.at + 1
-								resetQuestionValue()
-							})
-					}
-					
+			}
+			.onAppear {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+					speak(textToSpeak: lessonToday.quiz[lessonToday.at].answer.joined(separator: ""))
 				}
+			}
+			.padding(10)
+			.background(
+				Image(lessonToday.myTheme.contentPageBackground)
+					.resizable()
+			)
+			.sheet(isPresented: $showAnswer){
+				if makeSentence.joined(separator: "")==lessonToday.quiz[lessonToday.at].answer.joined(separator: "") {
+					CorrectAnswerView(isPresented: $showAnswer)
+						.onDisappear(perform: {
+							lessonToday.at = lessonToday.at + 1
+							resetQuestionValue()
+							
+							DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+								speak(textToSpeak: lessonToday.quiz[lessonToday.at].answer.joined(separator: ""))
+							}
+						})
+				}else{
+					WrongAnswerView(isPresented:$showAnswer, getMakeSentence: makeSentence)
+						.onDisappear(perform: {
+							lessonToday.quiz.append(lessonToday.quiz[lessonToday.at])
+							lessonToday.at = lessonToday.at + 1
+							resetQuestionValue()
+							
+							DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+								speak(textToSpeak: lessonToday.quiz[lessonToday.at].answer.joined(separator: ""))
+							}
+						})
+				}
+				
+			}
 		}else{
 			if goToView=="FinishedView" {
 				FinishedView()
@@ -229,20 +244,34 @@ struct QuestionView: View {
 		}
 	}
 	
+	private func speak(textToSpeak:String) {
+		//print(AVSpeechSynthesisVoice.speechVoices())
+		let utterance = AVSpeechUtterance(string: textToSpeak)
+		//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+		utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha")
+		utterance.rate = 0.2
+
+		let synthesizer = AVSpeechSynthesizer()
+		synthesizer.speak(utterance)
+	}
+	
 	private func pickAWord(selectedAnswer:String){
 		let chooseWord = selectedAnswer//lessonToday.quiz[lessonToday.at].options[selectedAnswer[0]][selectedAnswer[1]]
 		//if makeSentence.contains(chooseWord){
-			//word exists. play ding sound
+		//word exists. play ding sound
 		//	SoundManager.instance.playSound(sound: lessonToday.myTheme.duplicatedWord)
 		//}else{
-			//makeSentence.append(chooseWord)
-			rememberWord = chooseWord
-			print(chooseWord)
-			print(makeSentence.count)
-			SoundManager.instance.playSound(sound: lessonToday.myTheme.chooseWord)
-			withAnimation{
-				animateSentence = true
-			}
+		//makeSentence.append(chooseWord)
+		rememberWord = chooseWord
+		print(chooseWord)
+		print(makeSentence.count)
+		SoundManager.instance.playSound(sound: lessonToday.myTheme.chooseWord)
+		withAnimation{
+			animateSentence = true
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			speak(textToSpeak: chooseWord)
+		}
 		//}
 	}
 	
@@ -262,7 +291,7 @@ struct QuestionView: View {
 		makeSentence = []
 		showAnswerBtn = false
 	}
-
+	
 }
 
 struct QuestionView_Previews: PreviewProvider {
