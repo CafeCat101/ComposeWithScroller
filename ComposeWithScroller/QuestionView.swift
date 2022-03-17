@@ -18,6 +18,7 @@ struct QuestionView: View {
 	@State private var showAnswerBtn = false
 	@State private var showAnswer = false
 	@State private var testSentence = ["Pingu"," and"," Robby"," like to"," go"," skiing.","Pingu"," and"," Robby"," like to"," go"," skiing."]
+	@State private var getOptions:[String] = []
 	
 	var body: some View {
 		if goToView == "QuestionView"{
@@ -69,11 +70,11 @@ struct QuestionView: View {
 							
 							if showAnswerBtn == false {
 								Menu {
-									ForEach(0..<lessonToday.quiz[lessonToday.at].options.count) { index in
+									ForEach(0..<getOptions.count) { index in
 										Button(action:{
-											self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[index])
+											self.pickAWord(selectedAnswer: getOptions[index])
 										}){
-											Text(lessonToday.quiz[lessonToday.at].options[index])
+											Text(getOptions[index])
 												.font(.system(size: 40))
 										}
 									}
@@ -134,68 +135,6 @@ struct QuestionView: View {
 							RoundedRectangle(cornerRadius: 25, style: .continuous)
 								.strokeBorder(Color.white,lineWidth: 1)
 						)
-						
-						//Spacer().frame(height:150)
-						
-						/*ScrollView(.vertical) {
-						 HStack {
-						 VStack(alignment: .leading) {
-						 ForEach(0..<lessonToday.quiz[lessonToday.at].options[0].count) { index in
-						 Button(action:{
-						 self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[0][index])
-						 }){
-						 Text(lessonToday.quiz[lessonToday.at].options[0][index])
-						 .frame(minWidth:50,alignment:.center)
-						 .font(.system(size:50))
-						 .padding(10)
-						 .foregroundColor(Color.black)
-						 .background(
-						 RoundedRectangle(cornerRadius: 25, style: .continuous)
-						 .strokeBorder(Color.black,lineWidth: 1)
-						 .background(
-						 RoundedRectangle(cornerRadius: 25, style: .continuous)
-						 .foregroundColor(Color.white))
-						 )
-						 }.buttonStyle(PlainButtonStyle())
-						 }
-						 }
-						 .frame(maxWidth:.infinity)
-						 
-						 VStack(alignment: .leading) {
-						 ForEach(0..<lessonToday.quiz[lessonToday.at].options[1].count) { index in
-						 Button(action:{
-						 self.pickAWord(selectedAnswer: lessonToday.quiz[lessonToday.at].options[1][index])
-						 }){
-						 Text(lessonToday.quiz[lessonToday.at].options[1][index])
-						 .frame(minWidth:50,alignment:.center)
-						 .font(.system(size:50))
-						 .padding(10)
-						 .foregroundColor(Color.black)
-						 .background(
-						 RoundedRectangle(cornerRadius: 25, style: .continuous)
-						 .strokeBorder(Color.black,lineWidth: 1)
-						 .background(
-						 RoundedRectangle(cornerRadius: 25, style: .continuous)
-						 .foregroundColor(Color.white))
-						 )
-						 }.buttonStyle(PlainButtonStyle())
-						 }
-						 Spacer()
-						 }
-						 .frame(maxWidth:.infinity)
-						 
-						 }
-						 
-						 }
-						 .frame(maxWidth:.infinity)
-						 .padding(20)
-						 .background(
-						 RoundedRectangle(cornerRadius: 25, style: .continuous)
-						 .strokeBorder(Color.gray,lineWidth: 1)
-						 /*.background(
-							RoundedRectangle(cornerRadius: 25, style: .continuous)
-							.foregroundColor(Color.white.opacity(0.4)))*/
-						 )*/
 					}
 				}
 				
@@ -203,6 +142,7 @@ struct QuestionView: View {
 				Spacer()
 			}
 			.onAppear {
+				setQuizOptons()
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 					speak(textToSpeak: lessonToday.quiz[lessonToday.at].answer.joined(separator: ""))
 				}
@@ -245,11 +185,19 @@ struct QuestionView: View {
 	}
 	
 	private func speak(textToSpeak:String) {
-		print(AVSpeechSynthesisVoice.speechVoices())
+		//print(AVSpeechSynthesisVoice.speechVoices())
 		let utterance = AVSpeechUtterance(string: textToSpeak)
-		//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-		utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
-		utterance.rate = 0.2
+		if lessonToday.language == "ch" {
+			utterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+			//:sometime the identifier string is changed. just print the speechVoice list again
+			utterance.rate = 0.4
+		} else {
+			//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+			utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
+			//:sometime the identifier string is changed. just print the speechVoice list again
+			utterance.rate = 0.2
+		}
+		
 
 		let synthesizer = AVSpeechSynthesizer()
 		synthesizer.speak(utterance)
@@ -290,6 +238,15 @@ struct QuestionView: View {
 	private func resetQuestionValue(){
 		makeSentence = []
 		showAnswerBtn = false
+		setQuizOptons()
+	}
+	
+	private func setQuizOptons(){
+		if lessonToday.optionShuffled {
+			getOptions = lessonToday.quiz[lessonToday.at].options.shuffled()
+		} else {
+			getOptions = lessonToday.quiz[lessonToday.at].options
+		}
 	}
 	
 }

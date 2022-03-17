@@ -10,6 +10,8 @@ import Foundation
 struct Lesson: Codable{
 	var subject:String
 	var theme:String
+	var optionshuffled: Bool
+	var language:String
 	var quiz:[Quiz]
 }
 
@@ -18,6 +20,5 @@ struct Quiz: Codable{
 	var answer:[String]
 	var options:[String]
 	var picture:String
-	var status:Int
 }
 

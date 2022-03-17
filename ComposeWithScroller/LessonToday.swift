@@ -11,9 +11,11 @@ import SwiftUI
 class LessonToday: ObservableObject {
 	@Published var subject:String = "我們來組句子！"
 	@Published var quiz: [Quiz] = [
-		Quiz(asking: "草是什麼顏色？", answer: ["草是","綠色的","。"], options:[], picture:"", status: 0),
-		Quiz(asking: "雲是什麼顏色？", answer: ["雲是","白色的","。"], options:[], picture:"", status: 0)
+		Quiz(asking: "草是什麼顏色？", answer: ["草是","綠色的","。"], options:[], picture:""),
+		Quiz(asking: "雲是什麼顏色？", answer: ["雲是","白色的","。"], options:[], picture:"")
 	]
+	@Published var optionShuffled = false
+	@Published var language = "en"
 	@Published var at = 0
 	@Published var myTheme:MyTheme = MyTheme()
 	@Published var userFolderPath = URL(fileURLWithPath: FileManager.default.homeDirectoryForCurrentUser.path+"/Ege/class_writing/macos/ComposeWithScroller").path
@@ -29,7 +31,8 @@ class LessonToday: ObservableObject {
 				let decodedData = try JSONDecoder().decode(Lesson.self, from: jsonData)
 				subject = decodedData.subject
 				quiz = decodedData.quiz
-				//quiz.shuffle()
+				optionShuffled = decodedData.optionshuffled
+				language = decodedData.language
 				myTheme = MyTheme(setThemeName: decodedData.theme)
 			}
 		} catch {
