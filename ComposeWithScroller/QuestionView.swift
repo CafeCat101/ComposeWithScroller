@@ -245,10 +245,10 @@ struct QuestionView: View {
 	}
 	
 	private func speak(textToSpeak:String) {
-		//print(AVSpeechSynthesisVoice.speechVoices())
+		print(AVSpeechSynthesisVoice.speechVoices())
 		let utterance = AVSpeechUtterance(string: textToSpeak)
 		//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-		utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha")
+		utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
 		utterance.rate = 0.2
 
 		let synthesizer = AVSpeechSynthesizer()
