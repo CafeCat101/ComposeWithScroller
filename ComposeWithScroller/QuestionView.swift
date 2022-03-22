@@ -190,7 +190,7 @@ struct QuestionView: View {
 		if lessonToday.language == "ch" {
 			utterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
 			//:sometime the identifier string is changed. just print the speechVoice list again
-			utterance.rate = 0.4
+			utterance.rate = 0.3
 		} else {
 			//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
 			utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
