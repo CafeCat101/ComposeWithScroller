@@ -52,7 +52,4 @@ struct MyTheme{
 		}
 	}
 	
-
-	
-	
 }
