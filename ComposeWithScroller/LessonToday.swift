@@ -33,6 +33,7 @@ class LessonToday: ObservableObject {
 				quiz = decodedData.quiz
 				optionShuffled = decodedData.optionshuffled
 				language = decodedData.language
+				
 				myTheme = MyTheme(setThemeName: decodedData.theme)
 			}
 		} catch {
