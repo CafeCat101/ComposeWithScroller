@@ -50,6 +50,14 @@ struct MyTheme{
 		if setThemeName == "black2" {
 			contentPageBackground = "03_Chalkboard_BG"
 		}
+		
+		if setThemeName == "paper-1" {
+			contentPageBackground = "paper-1"
+		}
+		
+		if setThemeName == "paper-1-dark" {
+			contentPageBackground = "paper-1-dark"
+		}
 	}
 	
 }

@@ -192,10 +192,10 @@ struct QuestionView: View {
 			//:sometime the identifier string is changed. just print the speechVoice list again
 			utterance.rate = 0.3
 		} else {
-			//utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-			utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
+			utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+			//utterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.speech.synthesis.voice.samantha.premium")
 			//:sometime the identifier string is changed. just print the speechVoice list again
-			utterance.rate = 0.2
+			utterance.rate = 0.3
 		}
 		
 
